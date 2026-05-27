@@ -29,6 +29,14 @@ export type Product = {
   specs?: { label: Bilingual; value: Bilingual }[];
   motors?: string[];
   featured?: boolean;
+  // Decision-support fields (optional, populated where data exists)
+  bestFor?: Bilingual[];
+  material?: Bilingual;
+  maxDimensions?: Bilingual;
+  motorCompatibility?: Bilingual;
+  fireRating?: Bilingual;
+  warranty?: Bilingual;
+  commonApplications?: Bilingual[];
 };
 
 export type ProjectSector =
@@ -47,6 +55,7 @@ export type Project = {
   sector: ProjectSector;
   year: number | string;
   status: 'completed' | 'ongoing';
+  scale?: Bilingual;
 };
 
 export type Client = {
@@ -54,6 +63,15 @@ export type Client = {
   name: Bilingual;
   logo?: string;
 };
+
+export type ApprovalCategory =
+  | 'commercial'
+  | 'tax'
+  | 'labor'
+  | 'government'
+  | 'military'
+  | 'supplier'
+  | 'completion';
 
 export type Approval = {
   id: string;
@@ -63,7 +81,8 @@ export type Approval = {
   issuedOn?: string;
   expiresOn?: string;
   image?: string;
-  category: 'commercial' | 'tax' | 'labor' | 'government' | 'military';
+  evidenceUrl?: string;
+  category: ApprovalCategory;
 };
 
 export type Brand = {

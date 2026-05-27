@@ -1,7 +1,10 @@
+import { Suspense } from 'react';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { Section } from '@/components/ui/section';
+import { Container } from '@/components/ui/container';
 import { ProjectsTable } from '@/components/sections/projects-table';
+import { FeaturedReferences } from '@/components/sections/featured-references';
 
 export async function generateMetadata({
   params,
@@ -31,17 +34,30 @@ function ProjectsContent() {
   return (
     <>
       <Section className="border-b" size="default">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            {t('title')}
-          </h1>
-          <p className="text-muted-foreground mt-4 text-lg leading-relaxed">
-            {t('subtitle')}
-          </p>
-        </div>
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+              {t('title')}
+            </h1>
+            <p className="text-muted-foreground mt-4 text-lg leading-relaxed">
+              {t('subtitle')}
+            </p>
+          </div>
+        </Container>
       </Section>
+
+      <Section className="bg-muted/30">
+        <Container>
+          <FeaturedReferences />
+        </Container>
+      </Section>
+
       <Section>
-        <ProjectsTable />
+        <Container>
+          <Suspense fallback={null}>
+            <ProjectsTable />
+          </Suspense>
+        </Container>
       </Section>
     </>
   );

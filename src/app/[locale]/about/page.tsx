@@ -4,6 +4,7 @@ import { Eye, Send, MapPin } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Section, SectionHeader } from '@/components/ui/section';
 import { Card } from '@/components/ui/card';
+import { DownloadCTA } from '@/components/ui/download-cta';
 import { OrgChart } from '@/components/sections/org-chart';
 import { site } from '@/lib/site';
 
@@ -32,6 +33,7 @@ export default async function AboutPage({
 
 function AboutContent() {
   const t = useTranslations('About');
+  const tDl = useTranslations('Downloads');
   const locale = useLocale() as 'ar' | 'en';
 
   return (
@@ -110,6 +112,32 @@ function AboutContent() {
           align="center"
         />
         <OrgChart />
+      </Section>
+
+      <Section className="border-t bg-muted/30">
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              {tDl('aboutSectionTitle')}
+            </h2>
+            <p className="text-muted-foreground mt-3 text-base leading-relaxed">
+              {tDl('aboutSectionBody')}
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <DownloadCTA
+                href="/downloads/eatmed-company-profile.pdf"
+                label={tDl('companyProfile')}
+                sizeMb={18}
+              />
+              <DownloadCTA
+                href="/downloads/eatmed-previous-work-and-certifications.pdf"
+                label={tDl('previousWork')}
+                sizeMb={13}
+                variant="outline"
+              />
+            </div>
+          </div>
+        </Container>
       </Section>
     </>
   );

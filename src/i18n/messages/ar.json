@@ -40,9 +40,6 @@
     "heroFeature1Body": "خدمة استجابة سريعة مخصصة داخل الرياض، على مدار أيام الأسبوع.",
     "heroFeature2Title": "اعتماد حكومي",
     "heroFeature2Body": "مورد معتمد لدى وزارة الدفاع والحرس الملكي وأرامكو والشركة السعودية للكهرباء.",
-    "heroTestimonial": "أنجز فريق اعتمد المشروع كاملًا — من التوريد إلى التركيب إلى الصيانة المستمرة — دون أي تأخير في المواعيد.",
-    "heroTestimonialAuthor": "مهندس المشروع",
-    "heroTestimonialRole": "القوات الجوية الملكية السعودية - قاعدة الملك عبدالله الجوية",
     "heroFormTitle": "اطلب عرض سعر",
     "heroFormSubtitle": "أخبرنا عن مشروعك وسيتواصل معك فريق المبيعات خلال 24 ساعة.",
     "heroFormName": "الاسم الكامل",
@@ -138,11 +135,23 @@
     "highlightsTitle": "الميزات",
     "compatibleMotorsTitle": "المحركات المتوافقة",
     "requestQuote": "اطلب عرض سعر لهذا المنتج",
-    "relatedTitle": "منتجات ذات صلة"
+    "relatedTitle": "منتجات ذات صلة",
+    "decision": {
+      "title": "ما يساعدك على القرار",
+      "bestFor": "الأنسب لـ",
+      "material": "الخامة",
+      "maxDimensions": "أقصى المقاسات",
+      "motorCompatibility": "توافق المحركات",
+      "fireRating": "مقاومة الحريق",
+      "warranty": "الضمان",
+      "commonApplications": "تطبيقات شائعة"
+    }
   },
   "Projects": {
     "title": "أعمالنا السابقة",
     "subtitle": "مشاريع منفذة لجهات حكومية وشركات رائدة",
+    "featuredTitle": "أبرز الجهات الموثوقة",
+    "featuredSubtitle": "نخدم جهات حكومية وتجارية كبرى في المملكة.",
     "filterAll": "جميع القطاعات",
     "filterDefense": "الدفاع",
     "filterGuard": "الحرس الملكي",
@@ -158,12 +167,28 @@
     "statusOngoing": "جارٍ"
   },
   "Approvals": {
+    "eyebrow": "مركز الثقة",
     "title": "الاعتمادات والشهادات",
-    "subtitle": "موثقون من الجهات الحكومية والتجارية في المملكة",
+    "subtitle": "موثقون من الجهات الحكومية والتجارية في المملكة.",
     "issuedBy": "جهة الإصدار",
     "issuedOn": "تاريخ الإصدار",
     "expiresOn": "ينتهي في",
-    "viewCertificate": "عرض الشهادة"
+    "viewCertificate": "عرض الشهادة",
+    "statYears": "سنوات في السوق",
+    "statCertificates": "اعتماد وشهادة",
+    "statGovDefense": "جهة حكومية ودفاعية",
+    "statusActive": "سارٍ",
+    "statusExpiringSoon": "قارب على الانتهاء",
+    "statusExpired": "منتهي",
+    "categoryLabels": {
+      "commercial": "السجلات التجارية",
+      "tax": "الضرائب والامتثال",
+      "labor": "العمل والتأمينات",
+      "supplier": "اعتمادات الموردين",
+      "completion": "شهادات إنجاز المشاريع",
+      "military": "اعتمادات عسكرية ودفاعية",
+      "government": "مراجع حكومية"
+    }
   },
   "Contact": {
     "title": "تواصل معنا",
@@ -193,10 +218,40 @@
     "infoHoursValue": "الأحد - الخميس | 8:00 ص - 5:00 م",
     "whatsapp": "تواصل عبر الواتساب"
   },
+  "Lead": {
+    "scope": {
+      "supply": "توريد فقط",
+      "supply-install": "توريد وتركيب",
+      "maintenance": "صيانة",
+      "custom": "مشروع مخصص"
+    },
+    "scopeAny": "كل النطاقات",
+    "urgency": {
+      "immediate": "فوري",
+      "1-3-months": "خلال 1–3 أشهر",
+      "3-6-months": "خلال 3–6 أشهر",
+      "planning": "مرحلة تخطيط"
+    },
+    "urgencyAny": "بدون تحديد",
+    "urgencyLabel": "الإطار الزمني",
+    "cityLabel": "المدينة",
+    "cityPlaceholder": "الرياض، جدة…",
+    "quantityLabel": "الكمية",
+    "quantityPlaceholder": "مثال: 3",
+    "dimensionsLabel": "المقاسات",
+    "dimensionsPlaceholder": "مثال: 3.5 م × 4 م"
+  },
+  "Downloads": {
+    "companyProfile": "تحميل ملف الشركة",
+    "previousWork": "الأعمال السابقة والشهادات",
+    "aboutSectionTitle": "مستندات الشركة",
+    "aboutSectionBody": "حمّل ملف الشركة وكتيب الأعمال السابقة والاعتمادات لمراجعتها بسهولة."
+  },
   "Footer": {
     "tagline": "حلول الأبواب الأوتوماتيكية الرائدة في المملكة العربية السعودية.",
     "exploreTitle": "تصفح",
     "servicesTitle": "خدماتنا",
+    "resourcesTitle": "مستندات",
     "contactTitle": "تواصل",
     "rights": "© {year} شركة اعتمد للأبواب الأوتوماتيكية. جميع الحقوق محفوظة.",
     "cr": "س.ت: 1010831709"

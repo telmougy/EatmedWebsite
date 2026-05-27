@@ -40,9 +40,6 @@
     "heroFeature1Body": "Dedicated rapid-response service inside Riyadh, on call every day of the week.",
     "heroFeature2Title": "Government-grade",
     "heroFeature2Body": "Approved vendor across Saudi Defense, Royal Guard, Aramco and SEC procurement systems.",
-    "heroTestimonial": "Eatmed's team handled the full rollout — from supply through installation through ongoing maintenance — without a single missed deadline.",
-    "heroTestimonialAuthor": "Project Engineer",
-    "heroTestimonialRole": "Royal Saudi Air Force — King Abdullah Air Base",
     "heroFormTitle": "Request a quote",
     "heroFormSubtitle": "Tell us about your project and our sales team will respond within 24 hours.",
     "heroFormName": "Full name",
@@ -138,11 +135,23 @@
     "highlightsTitle": "Highlights",
     "compatibleMotorsTitle": "Compatible motors",
     "requestQuote": "Request a quote for this product",
-    "relatedTitle": "Related products"
+    "relatedTitle": "Related products",
+    "decision": {
+      "title": "Decision support",
+      "bestFor": "Best for",
+      "material": "Material",
+      "maxDimensions": "Max dimensions",
+      "motorCompatibility": "Motor compatibility",
+      "fireRating": "Fire rating",
+      "warranty": "Warranty",
+      "commonApplications": "Common applications"
+    }
   },
   "Projects": {
     "title": "Reference projects",
     "subtitle": "Delivered for government entities and leading enterprises",
+    "featuredTitle": "Reference clients",
+    "featuredSubtitle": "A selection of the government and commercial entities we serve.",
     "filterAll": "All sectors",
     "filterDefense": "Defence",
     "filterGuard": "Royal Guard",
@@ -158,12 +167,28 @@
     "statusOngoing": "Ongoing"
   },
   "Approvals": {
+    "eyebrow": "Trust center",
     "title": "Approvals & certifications",
-    "subtitle": "Accredited by government and commercial authorities across the Kingdom",
+    "subtitle": "Accredited by government and commercial authorities across the Kingdom.",
     "issuedBy": "Issued by",
     "issuedOn": "Issued",
     "expiresOn": "Expires",
-    "viewCertificate": "View certificate"
+    "viewCertificate": "View certificate",
+    "statYears": "Years operating",
+    "statCertificates": "Certificates on file",
+    "statGovDefense": "Government & defense references",
+    "statusActive": "Active",
+    "statusExpiringSoon": "Expiring soon",
+    "statusExpired": "Expired",
+    "categoryLabels": {
+      "commercial": "Commercial registrations",
+      "tax": "Tax & compliance",
+      "labor": "Labor & social insurance",
+      "supplier": "Supplier approvals",
+      "completion": "Completion certificates",
+      "military": "Military & defense references",
+      "government": "Government references"
+    }
   },
   "Contact": {
     "title": "Contact us",
@@ -193,10 +218,40 @@
     "infoHoursValue": "Sunday – Thursday | 8:00 AM – 5:00 PM",
     "whatsapp": "Chat on WhatsApp"
   },
+  "Lead": {
+    "scope": {
+      "supply": "Supply only",
+      "supply-install": "Supply + install",
+      "maintenance": "Maintenance",
+      "custom": "Custom project"
+    },
+    "scopeAny": "Any scope",
+    "urgency": {
+      "immediate": "Immediate",
+      "1-3-months": "1–3 months",
+      "3-6-months": "3–6 months",
+      "planning": "Planning / future"
+    },
+    "urgencyAny": "Any timeframe",
+    "urgencyLabel": "Timeframe",
+    "cityLabel": "City",
+    "cityPlaceholder": "Riyadh, Jeddah…",
+    "quantityLabel": "Quantity",
+    "quantityPlaceholder": "e.g. 3",
+    "dimensionsLabel": "Dimensions",
+    "dimensionsPlaceholder": "e.g. 3.5 m × 4 m"
+  },
+  "Downloads": {
+    "companyProfile": "Download company profile",
+    "previousWork": "Previous work & certifications",
+    "aboutSectionTitle": "Company documents",
+    "aboutSectionBody": "Download our full company profile and a portfolio of previous work and certifications for your records."
+  },
   "Footer": {
     "tagline": "Saudi Arabia's leading automatic-door solutions.",
     "exploreTitle": "Explore",
     "servicesTitle": "Services",
+    "resourcesTitle": "Resources",
     "contactTitle": "Contact",
     "rights": "© {year} Eatmed Automatic Doors. All rights reserved.",
     "cr": "CR: 1010831709"

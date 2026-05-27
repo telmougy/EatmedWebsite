@@ -1,30 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { CheckCircle2, AlertTriangle } from 'lucide-react';
 import { Input, Textarea, Label } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
-const schema = z.object({
-  name: z.string().min(2),
-  company: z.string().optional(),
-  email: z.string().email(),
-  phone: z.string().min(5),
-  message: z.string().min(10),
-  // honeypot
-  website: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof schema>;
+import {
+  leadSchema,
+  type LeadInput,
+  SCOPES,
+  URGENCIES,
+  emptyToUndefined,
+  toNumberOrUndefined,
+} from '@/lib/lead-schema';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export function ContactForm() {
   const t = useTranslations('Contact');
+  const tLead = useTranslations('Lead');
+  const tHome = useTranslations('Home');
+  const locale = useLocale() as 'ar' | 'en';
+  const pathname = usePathname();
   const [status, setStatus] = useState<Status>('idle');
 
   const {
@@ -32,11 +32,32 @@ export function ContactForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+    setValue,
+  } = useForm<LeadInput>({
+    resolver: zodResolver(leadSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      city: '',
+      scope: undefined,
+      urgency: undefined,
+      quantity: undefined,
+      dimensions: '',
+      message: '',
+      sourcePage: pathname ?? undefined,
+      locale,
+      website: '',
+    },
   });
 
-  const onSubmit = async (data: FormValues) => {
+  useEffect(() => {
+    setValue('sourcePage', pathname ?? undefined);
+    setValue('locale', locale);
+  }, [pathname, locale, setValue]);
+
+  const onSubmit = async (data: LeadInput) => {
     if (data.website) return; // honeypot triggered
     setStatus('submitting');
     try {
@@ -54,11 +75,7 @@ export function ContactForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      className="space-y-5"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           label={t('formName')}
@@ -112,6 +129,62 @@ export function ContactForm() {
         </Field>
       </div>
 
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label={tHome('heroFormScope')}>
+          <select
+            {...register('scope', { setValueAs: emptyToUndefined })}
+            defaultValue=""
+            className="border-border bg-background text-foreground focus-visible:ring-ring/50 h-10 w-full rounded-md border px-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
+          >
+            <option value="">{tLead('scopeAny')}</option>
+            {SCOPES.map((s) => (
+              <option key={s} value={s}>
+                {tLead(`scope.${s}`)}
+              </option>
+            ))}
+          </select>
+        </Field>
+        <Field label={tLead('urgencyLabel')}>
+          <select
+            {...register('urgency', { setValueAs: emptyToUndefined })}
+            defaultValue=""
+            className="border-border bg-background text-foreground focus-visible:ring-ring/50 h-10 w-full rounded-md border px-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
+          >
+            <option value="">{tLead('urgencyAny')}</option>
+            {URGENCIES.map((u) => (
+              <option key={u} value={u}>
+                {tLead(`urgency.${u}`)}
+              </option>
+            ))}
+          </select>
+        </Field>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-3">
+        <Field label={tLead('cityLabel')}>
+          <Input
+            {...register('city')}
+            placeholder={tLead('cityPlaceholder')}
+            autoComplete="address-level2"
+          />
+        </Field>
+        <Field label={tLead('quantityLabel')}>
+          <Input
+            type="number"
+            min={1}
+            dir="ltr"
+            {...register('quantity', { setValueAs: toNumberOrUndefined })}
+            placeholder={tLead('quantityPlaceholder')}
+          />
+        </Field>
+        <Field label={tLead('dimensionsLabel')}>
+          <Input
+            {...register('dimensions')}
+            placeholder={tLead('dimensionsPlaceholder')}
+          />
+        </Field>
+      </div>
+
       <Field
         label={t('formMessage')}
         error={errors.message && t('errorRequired')}
@@ -124,6 +197,10 @@ export function ContactForm() {
           rows={5}
         />
       </Field>
+
+      {/* Hidden context fields */}
+      <input type="hidden" {...register('sourcePage')} />
+      <input type="hidden" {...register('locale')} />
 
       {/* Honeypot */}
       <input

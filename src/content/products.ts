@@ -4,6 +4,7 @@ export const products: Product[] = [
   {
     slug: 'garage-rolling-doors',
     name: { ar: 'أبواب الرول السحابة (الجراج)', en: 'Garage Rolling Doors' },
+    hero: '/eatmed_product_photos_png/01_garage_rolling_doors.png',
     category: 'rolling',
     useCases: ['residential', 'commercial'],
     tagline: {
@@ -40,10 +41,30 @@ export const products: Product[] = [
     ],
     motors: ['liftmaster', 'gfa'],
     featured: true,
+    bestFor: [
+      { ar: 'الفلل والمنازل الخاصة', en: 'Villas and private residences' },
+      { ar: 'الجراجات التجارية الخفيفة', en: 'Light commercial garages' },
+    ],
+    material: {
+      ar: 'ألومنيوم Unicoil مطلي حراريًا',
+      en: 'Thermally-coated Unicoil aluminium',
+    },
+    maxDimensions: { ar: 'حتى 5.20 م × 5.50 م', en: 'Up to 5.20 m × 5.50 m' },
+    motorCompatibility: {
+      ar: 'LiftMaster (أمريكي) أو GfA (ألماني)',
+      en: 'LiftMaster (USA) or GfA (Germany)',
+    },
+    warranty: { ar: 'ضمان حسب نوع المحرك', en: 'Motor-dependent warranty' },
+    commonApplications: [
+      { ar: 'فلل سكنية', en: 'Residential villas' },
+      { ar: 'مجمعات تجارية', en: 'Commercial compounds' },
+      { ar: 'مستودعات صغيرة', en: 'Small warehouses' },
+    ],
   },
   {
     slug: 'industrial-rolling-doors',
     name: { ar: 'الأبواب الصناعية السحاب', en: 'Industrial Rolling Doors' },
+    hero: '/eatmed_product_photos_png/02_industrial_rolling_doors.png',
     category: 'rolling',
     useCases: ['industrial', 'commercial'],
     tagline: {
@@ -67,6 +88,28 @@ export const products: Product[] = [
     ],
     motors: ['acm', 'liftmaster'],
     featured: true,
+    bestFor: [
+      { ar: 'المستودعات والمصانع', en: 'Warehouses and factories' },
+      { ar: 'الورش الصناعية', en: 'Industrial workshops' },
+      {
+        ar: 'مواقع وزارة الدفاع والقطاعات الحكومية',
+        en: 'Ministry of Defense and government facilities',
+      },
+    ],
+    material: {
+      ar: 'سبائك ألومنيوم Unicoil سماكة 0.7 مم',
+      en: '0.7 mm Unicoil aluminium alloy',
+    },
+    maxDimensions: { ar: 'حتى 6 م × 5.50 م', en: 'Up to 6 m × 5.50 m' },
+    motorCompatibility: {
+      ar: 'ACM (إيطالي) أو LiftMaster (أمريكي)',
+      en: 'ACM (Italy) or LiftMaster (USA)',
+    },
+    commonApplications: [
+      { ar: 'مستودعات صناعية', en: 'Industrial warehouses' },
+      { ar: 'مواقف الشاحنات', en: 'Truck depots' },
+      { ar: 'مواقع وزارة الدفاع', en: 'MoD sites' },
+    ],
   },
   {
     slug: 'industrial-shutter-steel',
@@ -74,6 +117,7 @@ export const products: Product[] = [
       ar: 'الأبواب الشتر الصناعية (ستانلس ستيل)',
       en: 'Industrial Shutter (Stainless Steel)',
     },
+    hero: '/eatmed_product_photos_png/03_industrial_shutters_stainless_steel.png',
     category: 'shutter',
     useCases: ['industrial', 'commercial', 'security'],
     tagline: {
@@ -99,6 +143,7 @@ export const products: Product[] = [
       ar: 'الأبواب الشتر الصناعية (ألومنيوم)',
       en: 'Industrial Shutter (Aluminium)',
     },
+    hero: '/eatmed_product_photos_png/04_industrial_shutters_aluminum.png',
     category: 'shutter',
     useCases: ['industrial', 'commercial'],
     tagline: {
@@ -119,6 +164,7 @@ export const products: Product[] = [
   {
     slug: 'industrial-shutter-curved',
     name: { ar: 'الأبواب الشتر بشرائح منحنية', en: 'Curved-Slat Industrial Shutter' },
+    hero: '/eatmed_product_photos_png/08_curved_slats.png',
     category: 'shutter',
     useCases: ['commercial', 'security'],
     tagline: {
@@ -142,6 +188,7 @@ export const products: Product[] = [
       ar: 'أبواب شتر مقاومة للحريق (2 ساعة)',
       en: 'Fire-Rated Shutter (2-Hour)',
     },
+    hero: '/eatmed_product_photos_png/07_fire_rated_shutter_2hr.png',
     category: 'safety',
     useCases: ['industrial', 'commercial', 'security'],
     tagline: {
@@ -164,10 +211,29 @@ export const products: Product[] = [
     ],
     motors: ['gfa'],
     featured: true,
+    bestFor: [
+      { ar: 'مراكز الإطفاء والورش', en: 'Fire stations and workshops' },
+      {
+        ar: 'فواصل مكافحة الحريق في المباني الكبيرة',
+        en: 'Fire compartmentation in large buildings',
+      },
+    ],
+    material: {
+      ar: 'شرائح فولاذية مجلفنة معزولة بالبولي يوريثان أو الصوف الصخري',
+      en: 'Galvanised steel slats insulated with polyurethane or rock wool',
+    },
+    fireRating: { ar: 'مقاومة للحريق لمدة ساعتين', en: '2-hour fire resistance' },
+    motorCompatibility: { ar: 'GfA الألماني', en: 'GfA (Germany)' },
+    commonApplications: [
+      { ar: 'مراكز الإطفاء', en: 'Fire stations' },
+      { ar: 'مستودعات المواد الخطرة', en: 'Hazardous material stores' },
+      { ar: 'الفواصل بين أقسام المصانع', en: 'Factory compartment dividers' },
+    ],
   },
   {
     slug: 'insulated-rolling-shutter',
     name: { ar: 'أبواب الرول المعزولة', en: 'Insulated Rolling Shutter' },
+    hero: '/eatmed_product_photos_png/06_insulated_rolling_shutter.png',
     category: 'rolling',
     useCases: ['industrial', 'commercial'],
     tagline: {
@@ -191,6 +257,7 @@ export const products: Product[] = [
       ar: 'أبواب الشبك والقضبان المتشابكة',
       en: 'Automatic Grill Shutter',
     },
+    hero: '/eatmed_product_photos_png/05_grill_shutter_doors.png',
     category: 'shutter',
     useCases: ['commercial', 'security'],
     tagline: {
@@ -208,10 +275,25 @@ export const products: Product[] = [
     ],
     motors: ['acm'],
     featured: true,
+    bestFor: [
+      { ar: 'واجهات المعارض', en: 'Showroom storefronts' },
+      { ar: 'محلات المراكز التجارية', en: 'Shopping mall tenants' },
+    ],
+    material: {
+      ar: 'قضبان معدنية مجلفنة سماكة 6 مم',
+      en: '6 mm galvanised metal rods',
+    },
+    motorCompatibility: { ar: 'ACM الإيطالي', en: 'ACM (Italy)' },
+    commonApplications: [
+      { ar: 'المعارض التجارية', en: 'Retail showrooms' },
+      { ar: 'المراكز التجارية', en: 'Shopping malls' },
+      { ar: 'المعارض الفنية', en: 'Galleries' },
+    ],
   },
   {
     slug: 'window-shutter',
     name: { ar: 'ستائر النوافذ المعدنية', en: 'Window Shutter' },
+    hero: '/eatmed_product_photos_png/12_metal_window_shutters.png',
     category: 'shutter',
     useCases: ['residential', 'commercial'],
     tagline: {
@@ -229,10 +311,24 @@ export const products: Product[] = [
       { ar: 'كفاءة عزل عالية', en: 'High insulation efficiency' },
     ],
     motors: ['somfy'],
+    bestFor: [
+      { ar: 'الفلل والشقق السكنية', en: 'Residential villas and apartments' },
+    ],
+    material: {
+      ar: 'شرائح ألومنيوم 4 سم أو 6 سم (معزولة)',
+      en: '4 cm aluminium slats or 6 cm insulated slats',
+    },
+    motorCompatibility: { ar: 'Somfy الفرنسي', en: 'Somfy (France)' },
+    warranty: { ar: '5 سنوات على المحرك', en: '5-year motor warranty' },
+    commonApplications: [
+      { ar: 'نوافذ الفلل', en: 'Villa windows' },
+      { ar: 'الشقق السكنية', en: 'Residential apartments' },
+    ],
   },
   {
     slug: 'overhead-sectional-panorama',
     name: { ar: 'أبواب القطع المنزلقة والبانوراما', en: 'Overhead, Sectional & Panorama Doors' },
+    hero: '/eatmed_product_photos_png/11_overhead_sectional_doors.png',
     category: 'rolling',
     useCases: ['residential', 'commercial', 'industrial'],
     tagline: {
@@ -250,10 +346,23 @@ export const products: Product[] = [
     ],
     motors: ['liftmaster'],
     featured: true,
+    bestFor: [
+      { ar: 'محطات الوقود', en: 'Service stations' },
+      { ar: 'مراكز الإطفاء', en: 'Fire stations' },
+      { ar: 'مراكز خدمة السيارات', en: 'Self-service auto centres' },
+    ],
+    material: { ar: 'ألواح ألومنيوم سماكة 5 سم', en: '5 cm aluminium panels' },
+    motorCompatibility: { ar: 'LiftMaster الأمريكي', en: 'LiftMaster (USA)' },
+    commonApplications: [
+      { ar: 'محطات الوقود', en: 'Petrol stations' },
+      { ar: 'مراكز الإطفاء', en: 'Fire stations' },
+      { ar: 'الكراجات السكنية الفاخرة', en: 'Premium residential garages' },
+    ],
   },
   {
     slug: 'polycarbonate-doors',
     name: { ar: 'أبواب البولي كربونات', en: 'Polycarbonate Doors' },
+    hero: '/eatmed_product_photos_png/10_polycarbonate_doors.png',
     category: 'rolling',
     useCases: ['commercial'],
     tagline: {
@@ -274,6 +383,7 @@ export const products: Product[] = [
   {
     slug: 'sliding-gates',
     name: { ar: 'البوابات المنزلقة (سلايدينج)', en: 'Sliding Gates' },
+    hero: '/eatmed_product_photos_png/09_sliding_gates.png',
     category: 'gate',
     useCases: ['commercial', 'industrial', 'security'],
     tagline: {
@@ -294,6 +404,7 @@ export const products: Product[] = [
   {
     slug: 'swing-gates',
     name: { ar: 'بوابات الدرفتين (ماتور الكافرات)', en: 'Swing Gates' },
+    hero: '/eatmed_product_photos_png/16_swing_gates_motor.png',
     category: 'gate',
     useCases: ['residential', 'commercial'],
     tagline: {
@@ -314,6 +425,7 @@ export const products: Product[] = [
   {
     slug: 'glass-doors',
     name: { ar: 'الأبواب الزجاجية ذات الدرفتين', en: 'Automatic Glass Doors' },
+    hero: '/eatmed_product_photos_png/15_double_leaf_glass_doors.png',
     category: 'glass',
     useCases: ['commercial'],
     tagline: {
@@ -332,10 +444,27 @@ export const products: Product[] = [
     ],
     motors: ['dormakaba'],
     featured: true,
+    bestFor: [
+      { ar: 'مداخل المباني الرئيسية', en: 'Main building entrances' },
+      { ar: 'الفنادق والمستشفيات', en: 'Hotels and hospitals' },
+      { ar: 'المداخل ذات الحركة الكثيفة', en: 'High-traffic entrances' },
+    ],
+    material: {
+      ar: 'ألومنيوم مبثوق مع زجاج عالي الأداء',
+      en: 'Extruded aluminium with performance glass',
+    },
+    motorCompatibility: { ar: 'Dormakaba ESA200', en: 'Dormakaba ESA200' },
+    commonApplications: [
+      { ar: 'الفنادق', en: 'Hotels' },
+      { ar: 'المستشفيات', en: 'Hospitals' },
+      { ar: 'المراكز التجارية', en: 'Shopping malls' },
+      { ar: 'مباني المكاتب الرئيسية', en: 'Office building lobbies' },
+    ],
   },
   {
     slug: 'emergency-fire-doors',
     name: { ar: 'أبواب الطوارئ (عادية وضد الحريق)', en: 'Emergency & Fire-Rated Doors' },
+    hero: '/eatmed_product_photos_png/14_hollow_metal_doors.png',
     category: 'safety',
     useCases: ['industrial', 'commercial', 'security'],
     tagline: {
@@ -351,10 +480,26 @@ export const products: Product[] = [
       { ar: 'عزل صوتي وحراري', en: 'Sound and heat insulation' },
       { ar: 'مناسبة لمخارج الطوارئ', en: 'Suitable for emergency exits' },
     ],
+    bestFor: [
+      { ar: 'مخارج الطوارئ', en: 'Emergency exits' },
+      { ar: 'غرف الأشعة والمختبرات', en: 'Radiology rooms and labs' },
+      { ar: 'دورات المياه', en: 'Washrooms' },
+    ],
+    material: {
+      ar: 'فولاذ جوفاء معزول بالبولي يوريثان',
+      en: 'Hollow metal insulated with polyurethane',
+    },
+    fireRating: { ar: 'متوفرة بتصنيف مقاوم للحريق', en: 'Available fire-rated' },
+    commonApplications: [
+      { ar: 'مخارج الطوارئ', en: 'Emergency exits' },
+      { ar: 'المستشفيات', en: 'Hospitals' },
+      { ar: 'المختبرات', en: 'Laboratories' },
+    ],
   },
   {
     slug: 'parking-barriers',
     name: { ar: 'الأعمدة الإلكترونية لمواقف السيارات', en: 'Electronic Parking Barriers' },
+    hero: '/eatmed_product_photos_png/13_electronic_parking_barriers.png',
     category: 'barrier',
     useCases: ['commercial', 'security'],
     tagline: {

@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, FileText } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Link } from '@/i18n/navigation';
 import { Logo } from './logo';
@@ -9,13 +9,14 @@ export function Footer() {
   const t = useTranslations('Footer');
   const tNav = useTranslations('Nav');
   const tHome = useTranslations('Home');
+  const tDl = useTranslations('Downloads');
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t bg-muted/30 mt-16">
       <Container>
-        <div className="grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-4">
+        <div className="grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
+          <div className="space-y-4 lg:col-span-2">
             <Logo />
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
               {t('tagline')}
@@ -28,18 +29,18 @@ export function Footer() {
               {t('exploreTitle')}
             </h3>
             <ul className="space-y-2 text-sm">
-              {(['home', 'about', 'products', 'projects', 'approvals', 'contact'] as const).map(
-                (key) => (
-                  <li key={key}>
-                    <Link
-                      href={key === 'home' ? '/' : `/${key}`}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {tNav(key)}
-                    </Link>
-                  </li>
-                ),
-              )}
+              {(
+                ['home', 'about', 'products', 'projects', 'approvals', 'contact'] as const
+              ).map((key) => (
+                <li key={key}>
+                  <Link
+                    href={key === 'home' ? '/' : `/${key}`}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {tNav(key)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -54,6 +55,33 @@ export function Footer() {
               <li>{tHome('servicesCustomTitle')}</li>
               <li>{tHome('servicesConsultationTitle')}</li>
               <li>{tHome('servicesSparePartsTitle')}</li>
+            </ul>
+            <h3 className="mt-6 mb-3 text-sm font-semibold tracking-wide uppercase">
+              {t('resourcesTitle')}
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a
+                  href="/downloads/eatmed-company-profile.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <FileText className="size-3.5" />
+                  {tDl('companyProfile')}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/downloads/eatmed-previous-work-and-certifications.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <FileText className="size-3.5" />
+                  {tDl('previousWork')}
+                </a>
+              </li>
             </ul>
           </div>
 

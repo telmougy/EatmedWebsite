@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
@@ -15,17 +16,26 @@ export function ProductCard({ product }: { product: Product }) {
       className="group focus-visible:outline-none"
     >
       <Card className="group-focus-visible:ring-ring h-full overflow-hidden p-0 group-focus-visible:ring-2 group-focus-visible:ring-offset-2">
-        {/* Visual placeholder using gradient + category icon */}
-        <div className="from-primary/15 via-primary/5 to-muted relative aspect-[4/3] overflow-hidden bg-gradient-to-br">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-30"
-            style={{
-              backgroundImage:
-                'repeating-linear-gradient(0deg, currentColor 0 2px, transparent 2px 14px)',
-              color: 'oklch(0.22 0.06 264)',
-            }}
-          />
+        <div className="bg-muted/40 from-primary/5 via-primary/0 to-muted/40 relative aspect-[5/4] overflow-hidden bg-gradient-to-br">
+          {product.hero ? (
+            <Image
+              src={product.hero}
+              alt={product.name[locale]}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-contain p-5 transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 opacity-30"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(0deg, currentColor 0 2px, transparent 2px 14px)',
+                color: 'oklch(0.22 0.06 264)',
+              }}
+            />
+          )}
           <div className="absolute top-3 end-3">
             <Badge variant="secondary" className="capitalize">
               {product.category}

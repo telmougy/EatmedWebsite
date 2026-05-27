@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/cn';
@@ -9,18 +10,54 @@ import type { ProjectSector } from '@/content/types';
 
 type Filter = 'all' | ProjectSector;
 
+const SECTORS: ProjectSector[] = [
+  'defense',
+  'guard',
+  'government',
+  'commercial',
+  'utility',
+];
+
 export function ProjectsTable() {
   const t = useTranslations('Projects');
   const locale = useLocale() as 'ar' | 'en';
-  const [filter, setFilter] = useState<Filter>('all');
+  const searchParams = useSearchParams();
+  // Hydrate filter from ?sector= URL param so other pages can deep-link
+  const [filter, setFilter] = useState<Filter>(() => {
+    const initial = searchParams?.get('sector');
+    if (initial && (SECTORS as readonly string[]).includes(initial)) {
+      return initial as ProjectSector;
+    }
+    return 'all';
+  });
 
-  const filters: { key: Filter; label: string }[] = [
-    { key: 'all', label: t('filterAll') },
-    { key: 'defense', label: t('filterDefense') },
-    { key: 'guard', label: t('filterGuard') },
-    { key: 'government', label: t('filterGovernment') },
-    { key: 'commercial', label: t('filterCommercial') },
-    { key: 'utility', label: t('filterUtility') },
+  const sectorCounts = useMemo(() => {
+    const counts: Record<ProjectSector, number> = {
+      defense: 0,
+      guard: 0,
+      government: 0,
+      commercial: 0,
+      utility: 0,
+    };
+    for (const p of projects) counts[p.sector]++;
+    return counts;
+  }, []);
+
+  const filters: { key: Filter; label: string; count: number }[] = [
+    { key: 'all', label: t('filterAll'), count: projects.length },
+    { key: 'defense', label: t('filterDefense'), count: sectorCounts.defense },
+    { key: 'guard', label: t('filterGuard'), count: sectorCounts.guard },
+    {
+      key: 'government',
+      label: t('filterGovernment'),
+      count: sectorCounts.government,
+    },
+    {
+      key: 'commercial',
+      label: t('filterCommercial'),
+      count: sectorCounts.commercial,
+    },
+    { key: 'utility', label: t('filterUtility'), count: sectorCounts.utility },
   ];
 
   const filtered = useMemo(() => {
@@ -37,14 +74,24 @@ export function ProjectsTable() {
             type="button"
             onClick={() => setFilter(f.key)}
             className={cn(
-              'rounded-full border px-4 py-1.5 text-sm font-medium transition-colors',
+              'inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors',
               filter === f.key
                 ? 'border-primary bg-primary text-primary-foreground'
                 : 'border-border bg-background hover:bg-muted',
             )}
             aria-pressed={filter === f.key}
           >
-            {f.label}
+            <span>{f.label}</span>
+            <span
+              className={cn(
+                'rounded-full px-1.5 py-0.5 text-[10px] font-semibold',
+                filter === f.key
+                  ? 'bg-primary-foreground/20 text-primary-foreground'
+                  : 'bg-muted text-muted-foreground',
+              )}
+            >
+              {f.count}
+            </span>
           </button>
         ))}
       </div>
@@ -68,7 +115,12 @@ export function ProjectsTable() {
             {filtered.map((p) => (
               <tr key={p.id} className="hover:bg-muted/30 transition-colors">
                 <td className="px-4 py-3">
-                  <span className="font-medium">{p.name[locale]}</span>
+                  <div className="font-medium">{p.name[locale]}</div>
+                  {p.scale && (
+                    <div className="text-muted-foreground mt-0.5 text-xs">
+                      {p.scale[locale]}
+                    </div>
+                  )}
                 </td>
                 <td className="text-muted-foreground hidden px-4 py-3 md:table-cell">
                   {p.owner[locale]}

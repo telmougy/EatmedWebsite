@@ -1,16 +1,60 @@
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
 import { Resend } from 'resend';
 import { site } from '@/lib/site';
+import { leadSchema, type LeadInput } from '@/lib/lead-schema';
 
-const schema = z.object({
-  name: z.string().min(2),
-  company: z.string().optional(),
-  email: z.string().email(),
-  phone: z.string().min(5),
-  message: z.string().min(10),
-  website: z.string().optional(), // honeypot
-});
+const SCOPE_LABELS: Record<NonNullable<LeadInput['scope']>, string> = {
+  supply: 'Supply only',
+  'supply-install': 'Supply + install',
+  maintenance: 'Maintenance',
+  custom: 'Custom project',
+};
+
+const URGENCY_LABELS: Record<NonNullable<LeadInput['urgency']>, string> = {
+  immediate: 'Immediate',
+  '1-3-months': '1–3 months',
+  '3-6-months': '3–6 months',
+  planning: 'Planning / future',
+};
+
+function formatBody(data: LeadInput): string {
+  const sep = '─'.repeat(40);
+  const scopeLabel = data.scope ? SCOPE_LABELS[data.scope] : '—';
+  const urgencyLabel = data.urgency ? URGENCY_LABELS[data.urgency] : '—';
+  const product = data.productName
+    ? `${data.productName}${data.productSlug ? ` (${data.productSlug})` : ''}`
+    : '—';
+
+  return [
+    'Eatmed — New Enquiry',
+    sep,
+    `Name      : ${data.name}`,
+    `Company   : ${data.company ?? '—'}`,
+    `Email     : ${data.email}`,
+    `Phone     : ${data.phone}`,
+    `City      : ${data.city ?? '—'}`,
+    `Locale    : ${data.locale ?? '—'}`,
+    `Source    : ${data.sourcePage ?? '—'}`,
+    sep,
+    `Scope     : ${scopeLabel}`,
+    `Product   : ${product}`,
+    `Quantity  : ${data.quantity ?? '—'}`,
+    `Dimensions: ${data.dimensions ?? '—'}`,
+    `Urgency   : ${urgencyLabel}`,
+    sep,
+    'Message:',
+    data.message,
+  ].join('\n');
+}
+
+function formatSubject(data: LeadInput): string {
+  const parts: string[] = [];
+  if (data.scope) parts.push(SCOPE_LABELS[data.scope]);
+  if (data.productName) parts.push(data.productName);
+  parts.push(data.name);
+  if (data.company) parts.push(`(${data.company})`);
+  return `New enquiry — ${parts.join(' — ')}`;
+}
 
 export async function POST(req: Request) {
   let body: unknown;
@@ -20,25 +64,24 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'invalid_json' }, { status: 400 });
   }
 
-  const parsed = schema.safeParse(body);
+  const parsed = leadSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ ok: false, error: 'invalid_input' }, { status: 422 });
   }
-  const { name, company, email, phone, message, website } = parsed.data;
+  const data = parsed.data;
 
   // Honeypot — silently succeed without sending
-  if (website) {
+  if (data.website) {
     return NextResponse.json({ ok: true });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL ?? site.email;
+  const text = formatBody(data);
 
   if (!apiKey) {
     // No key configured — log to server but return success so the form still works in dev
-    console.warn('[contact] RESEND_API_KEY not set; skipping send. Payload:', {
-      name, company, email, phone, message,
-    });
+    console.warn('[contact] RESEND_API_KEY not set; skipping send. Payload:\n' + text);
     return NextResponse.json({ ok: true, mode: 'dev' });
   }
 
@@ -47,18 +90,9 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: `Eatmed Website <noreply@eatmed.sa>`,
       to,
-      replyTo: email,
-      subject: `New enquiry from ${name}${company ? ` (${company})` : ''}`,
-      text: [
-        `Name: ${name}`,
-        company ? `Company: ${company}` : null,
-        `Email: ${email}`,
-        `Phone: ${phone}`,
-        '',
-        message,
-      ]
-        .filter(Boolean)
-        .join('\n'),
+      replyTo: data.email,
+      subject: formatSubject(data),
+      text,
     });
     return NextResponse.json({ ok: true });
   } catch (err) {
