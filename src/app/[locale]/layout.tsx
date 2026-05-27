@@ -67,9 +67,6 @@ export async function generateMetadata({
         'x-default': '/ar',
       },
     },
-    icons: {
-      icon: '/favicon.svg',
-    },
   };
 }
 
