@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Eatmed 3E mark">
+  <rect x="90" y="28" width="32" height="200" fill="#14143F"/>
+  <rect x="10" y="28" width="112" height="32" fill="#14143F"/>
+  <rect x="42" y="112" width="80" height="32" fill="#14143F"/>
+  <rect x="70" y="196" width="52" height="32" fill="#14143F"/>
+  <path d="M10 196 H70 V228 H50 V252 H10 Z" fill="#3DB87A"/>
+  <rect x="134" y="28" width="32" height="200" fill="#14143F"/>
+  <rect x="134" y="28" width="52" height="32" fill="#14143F"/>
+  <path d="M246 60 H186 V28 H206 V4 H246 Z" fill="#3DB87A"/>
+  <rect x="134" y="112" width="80" height="32" fill="#14143F"/>
+  <rect x="134" y="196" width="112" height="32" fill="#14143F"/>
+</svg>
