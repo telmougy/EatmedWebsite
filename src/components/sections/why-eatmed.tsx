@@ -29,14 +29,11 @@ export function WhyEatmed() {
         align="center"
       />
       <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map(({ icon: Icon, title, body }, i) => (
+        {items.map(({ icon: Icon, title, body }) => (
           <li key={title} className="relative ps-14">
             <span className="bg-background border-border absolute start-0 top-0 inline-flex size-12 items-center justify-center rounded-xl border shadow-sm">
               <Icon className="text-primary size-6" />
             </span>
-            <div className="text-muted-foreground/70 mb-1 text-xs font-semibold tracking-wide">
-              {String(i + 1).padStart(2, '0')}
-            </div>
             <h3 className="text-base font-semibold tracking-tight">{title}</h3>
             <p className="text-muted-foreground mt-1.5 text-sm leading-relaxed">
               {body}

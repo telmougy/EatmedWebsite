@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Mail, MapPin, Phone, FileText } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Link } from '@/i18n/navigation';
@@ -10,6 +10,7 @@ export function Footer() {
   const tNav = useTranslations('Nav');
   const tHome = useTranslations('Home');
   const tDl = useTranslations('Downloads');
+  const locale = useLocale() as 'ar' | 'en';
   const year = new Date().getFullYear();
 
   return (
@@ -90,12 +91,6 @@ export function Footer() {
               {t('contactTitle')}
             </h3>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2">
-                <MapPin className="text-primary mt-0.5 size-4 shrink-0" />
-                <span className="text-muted-foreground">
-                  {site.address.en}
-                </span>
-              </li>
               {site.phones.map((phone) => (
                 <li key={phone} className="flex items-center gap-2">
                   <Phone className="text-primary size-4 shrink-0" />
@@ -117,6 +112,12 @@ export function Footer() {
                 >
                   {site.email}
                 </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin className="text-primary mt-0.5 size-4 shrink-0" />
+                <span className="text-muted-foreground">
+                  {site.address[locale]}
+                </span>
               </li>
             </ul>
           </div>

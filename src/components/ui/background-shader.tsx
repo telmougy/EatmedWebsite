@@ -1,6 +1,6 @@
 'use client';
 
-import { GodRays } from '@paper-design/shaders-react';
+import { MeshGradient } from '@paper-design/shaders-react';
 
 /**
  * Site-wide ambient shader. Sits behind all content via a fixed, full-
@@ -8,30 +8,23 @@ import { GodRays } from '@paper-design/shaders-react';
  * (`relative isolate`) for the -z-10 to paint above the body's own
  * background but below page content.
  *
- * Parameters are intentionally subtler than the hero's prominent
- * instance: lower intensity/density and tighter alphas so the effect
- * reads as ambience, not a focal point.
+ * Uses MeshGradient with brand navy + green tones (the same palette as
+ * the quote-dialog modal). Opacity-tuned so it reads as ambience rather
+ * than a focal point on dark backgrounds, and tames itself on light.
  */
 export function BackgroundShader() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10"
+      className="pointer-events-none fixed inset-0 -z-10 hidden opacity-70 dark:block"
     >
-      <GodRays
-        colorBack="#00000000"
-        colors={['#3DB87A1F', '#52BA851F', '#1E21471F', '#A1A1AA14']}
-        colorBloom="#3DB87A"
-        offsetX={0.85}
-        offsetY={-1}
-        intensity={0.22}
-        spotty={0.4}
-        midSize={10}
-        midIntensity={0}
-        density={0.28}
-        bloom={0.18}
+      <MeshGradient
         speed={0.3}
-        scale={1.8}
+        colors={['#0B0E26', '#14143F', '#0F2A24', '#1E2147']}
+        distortion={0.7}
+        swirl={0.1}
+        grainMixer={0.12}
+        grainOverlay={0}
         style={{ height: '100%', width: '100%' }}
       />
     </div>
