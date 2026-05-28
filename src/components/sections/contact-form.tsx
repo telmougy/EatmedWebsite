@@ -12,16 +12,13 @@ import {
   leadSchema,
   type LeadInput,
   SCOPES,
-  URGENCIES,
   emptyToUndefined,
-  toNumberOrUndefined,
 } from '@/lib/lead-schema';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export function ContactForm() {
   const t = useTranslations('Contact');
-  const tLead = useTranslations('Lead');
   const tHome = useTranslations('Home');
   const locale = useLocale() as 'ar' | 'en';
   const pathname = usePathname();
@@ -40,11 +37,7 @@ export function ContactForm() {
       email: '',
       phone: '',
       company: '',
-      city: '',
-      scope: undefined,
-      urgency: undefined,
-      quantity: undefined,
-      dimensions: '',
+      scope: 'supply-install',
       message: '',
       sourcePage: pathname ?? undefined,
       locale,
@@ -129,61 +122,27 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field label={tHome('heroFormScope')}>
-          <select
-            {...register('scope', { setValueAs: emptyToUndefined })}
-            defaultValue=""
-            className="border-border bg-background text-foreground focus-visible:ring-ring/50 h-10 w-full rounded-md border px-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
-          >
-            <option value="">{tLead('scopeAny')}</option>
-            {SCOPES.map((s) => (
-              <option key={s} value={s}>
-                {tLead(`scope.${s}`)}
-              </option>
-            ))}
-          </select>
-        </Field>
-        <Field label={tLead('urgencyLabel')}>
-          <select
-            {...register('urgency', { setValueAs: emptyToUndefined })}
-            defaultValue=""
-            className="border-border bg-background text-foreground focus-visible:ring-ring/50 h-10 w-full rounded-md border px-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
-          >
-            <option value="">{tLead('urgencyAny')}</option>
-            {URGENCIES.map((u) => (
-              <option key={u} value={u}>
-                {tLead(`urgency.${u}`)}
-              </option>
-            ))}
-          </select>
-        </Field>
-      </div>
-
-      <div className="grid gap-5 sm:grid-cols-3">
-        <Field label={tLead('cityLabel')}>
-          <Input
-            {...register('city')}
-            placeholder={tLead('cityPlaceholder')}
-            autoComplete="address-level2"
-          />
-        </Field>
-        <Field label={tLead('quantityLabel')}>
-          <Input
-            type="number"
-            min={1}
-            dir="ltr"
-            {...register('quantity', { setValueAs: toNumberOrUndefined })}
-            placeholder={tLead('quantityPlaceholder')}
-          />
-        </Field>
-        <Field label={tLead('dimensionsLabel')}>
-          <Input
-            {...register('dimensions')}
-            placeholder={tLead('dimensionsPlaceholder')}
-          />
-        </Field>
-      </div>
+      <Field label={tHome('heroFormScope')}>
+        <select
+          {...register('scope', { setValueAs: emptyToUndefined })}
+          defaultValue="supply-install"
+          className="border-border bg-background text-foreground focus-visible:ring-ring/50 h-10 w-full rounded-md border px-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
+        >
+          {SCOPES.map((s) => (
+            <option key={s} value={s}>
+              {tHome(
+                s === 'supply'
+                  ? 'heroFormScopeSupply'
+                  : s === 'supply-install'
+                    ? 'heroFormScopeInstall'
+                    : s === 'maintenance'
+                      ? 'heroFormScopeMaintenance'
+                      : 'heroFormScopeCustom',
+              )}
+            </option>
+          ))}
+        </select>
+      </Field>
 
       <Field
         label={t('formMessage')}
@@ -215,6 +174,7 @@ export function ContactForm() {
           width: '1px',
           height: '1px',
           opacity: 0,
+          pointerEvents: 'none',
         }}
       />
 

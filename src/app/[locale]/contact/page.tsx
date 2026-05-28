@@ -34,9 +34,9 @@ function ContactContent() {
   const locale = useLocale() as 'ar' | 'en';
 
   return (
-    <>
-      <Section className="border-b" size="default">
-        <div className="mx-auto max-w-3xl text-center">
+    <Section size="sm">
+      <Container>
+        <div className="mx-auto mb-10 max-w-3xl text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             {t('title')}
           </h1>
@@ -44,10 +44,8 @@ function ContactContent() {
             {t('subtitle')}
           </p>
         </div>
-      </Section>
 
-      <Section>
-        <Container className="grid gap-10 lg:grid-cols-5">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
             <ContactForm />
           </div>
@@ -110,9 +108,9 @@ function ContactContent() {
               {t('whatsapp')}
             </a>
           </aside>
-        </Container>
-      </Section>
-    </>
+        </div>
+      </Container>
+    </Section>
   );
 }
 
