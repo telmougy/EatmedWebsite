@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { WhatsAppFab } from '@/components/layout/whatsapp-fab';
+import { BackgroundShader } from '@/components/ui/background-shader';
 import { OrganizationJsonLd } from '@/components/seo/json-ld';
 import { routing } from '@/i18n/routing';
 import { site } from '@/lib/site';
@@ -98,7 +99,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${plexArabic.variable} h-full antialiased`}
     >
-      <body className="bg-background text-foreground flex min-h-full flex-col overflow-x-hidden">
+      <body className="bg-background text-foreground relative isolate flex min-h-full flex-col overflow-x-hidden">
         <a
           href="#main-content"
           className="bg-primary text-primary-foreground sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[100] focus:rounded-md focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:shadow-lg"
@@ -106,6 +107,7 @@ export default async function LocaleLayout({
           {locale === 'ar' ? 'تخطي إلى المحتوى' : 'Skip to main content'}
         </a>
         <OrganizationJsonLd locale={locale} />
+        <BackgroundShader />
         <ThemeProvider>
           <NextIntlClientProvider>
             <Header />
