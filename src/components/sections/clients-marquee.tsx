@@ -1,8 +1,8 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { Container } from '@/components/ui/container';
-import { clients } from '@/content/clients';
+import type { Client } from '@/content/types';
 
-export function ClientsMarquee() {
+export function ClientsMarquee({ clients }: { clients: Client[] }) {
   const t = useTranslations('Home');
   const locale = useLocale() as 'ar' | 'en';
   // Double the list for seamless looping

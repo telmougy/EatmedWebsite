@@ -3,9 +3,10 @@ import { Mail, MapPin, Phone, FileText } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Link } from '@/i18n/navigation';
 import { Logo } from './logo';
-import { site, telLink } from '@/lib/site';
+import { telLink } from '@/lib/site';
+import type { SiteSettings } from '@/content/site-settings';
 
-export function Footer() {
+export function Footer({ settings }: { settings: SiteSettings }) {
   const t = useTranslations('Footer');
   const tNav = useTranslations('Nav');
   const tHome = useTranslations('Home');
@@ -91,7 +92,7 @@ export function Footer() {
               {t('contactTitle')}
             </h3>
             <ul className="space-y-3 text-sm">
-              {site.phones.map((phone) => (
+              {settings.phones.map((phone) => (
                 <li key={phone} className="flex items-center gap-2">
                   <Phone className="text-primary size-4 shrink-0" />
                   <a
@@ -106,17 +107,17 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="text-primary size-4 shrink-0" />
                 <a
-                  href={`mailto:${site.email}`}
+                  href={`mailto:${settings.email}`}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   dir="ltr"
                 >
-                  {site.email}
+                  {settings.email}
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="text-primary mt-0.5 size-4 shrink-0" />
                 <span className="text-muted-foreground">
-                  {site.address[locale]}
+                  {settings.address[locale]}
                 </span>
               </li>
             </ul>

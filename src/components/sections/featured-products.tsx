@@ -3,9 +3,9 @@ import { ArrowRight } from 'lucide-react';
 import { Section, SectionHeader } from '@/components/ui/section';
 import { Link } from '@/i18n/navigation';
 import { ProductCard } from '@/components/product/product-card';
-import { featuredProducts } from '@/content/products';
+import type { Product } from '@/content/types';
 
-export function FeaturedProducts() {
+export function FeaturedProducts({ products }: { products: Product[] }) {
   const t = useTranslations('Home');
 
   return (
@@ -25,7 +25,7 @@ export function FeaturedProducts() {
         </Link>
       </div>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {featuredProducts.map((p) => (
+        {products.map((p) => (
           <ProductCard key={p.slug} product={p} />
         ))}
       </div>

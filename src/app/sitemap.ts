@@ -1,14 +1,15 @@
 import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
 import { site } from '@/lib/site';
-import { products } from '@/content/products';
+import { getProductSlugs } from '@/content/products';
 
 const staticPaths = ['', '/about', '/products', '/projects', '/approvals', '/contact'];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
   const base = site.url;
   const now = new Date();
+  const slugs = await getProductSlugs();
 
   for (const locale of routing.locales) {
     for (const path of staticPaths) {
@@ -24,15 +25,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       });
     }
-    for (const p of products) {
+    for (const slug of slugs) {
       entries.push({
-        url: `${base}/${locale}/products/${p.slug}`,
+        url: `${base}/${locale}/products/${slug}`,
         lastModified: now,
         changeFrequency: 'monthly',
         priority: 0.6,
         alternates: {
           languages: Object.fromEntries(
-            routing.locales.map((l) => [l, `${base}/${l}/products/${p.slug}`]),
+            routing.locales.map((l) => [l, `${base}/${l}/products/${slug}`]),
           ),
         },
       });

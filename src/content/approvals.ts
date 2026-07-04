@@ -1,10 +1,14 @@
 import type { Approval } from './types';
+import { sanityFetch } from '@/sanity/fetch';
+import { TAGS } from '@/sanity/tags';
+import { approvalsQuery } from '@/sanity/queries';
 
 // Aggregate evidence document used as fallback "view certificate" link
 // for entries that don't have a dedicated scan yet.
 const COMBINED_EVIDENCE = '/downloads/eatmed-previous-work-and-certifications.pdf';
 
-export const approvals: Approval[] = [
+// Bundled fallback / seed source for scripts/sanity-import.ts. Remove at cutover.
+export const fallbackApprovals: Approval[] = [
   {
     id: 'commercial-registration',
     title: { ar: 'شهادة السجل التجاري', en: 'Commercial Registration' },
@@ -207,3 +211,12 @@ export const approvals: Approval[] = [
     evidenceUrl: COMBINED_EVIDENCE,
   },
 ];
+
+/** All approvals/certifications, Sanity-first with static fallback. */
+export async function getApprovals(): Promise<Approval[]> {
+  const data = await sanityFetch<Approval[]>({
+    query: approvalsQuery,
+    tags: [TAGS.approval],
+  });
+  return data && data.length > 0 ? data : fallbackApprovals;
+}

@@ -2,6 +2,8 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { Section } from '@/components/ui/section';
 import { ProductsCatalog } from '@/components/product/products-catalog';
+import { getProducts } from '@/content/products';
+import type { Product } from '@/content/types';
 
 export async function generateMetadata({
   params,
@@ -23,10 +25,11 @@ export default async function ProductsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <ProductsPageContent />;
+  const products = await getProducts();
+  return <ProductsPageContent products={products} />;
 }
 
-function ProductsPageContent() {
+function ProductsPageContent({ products }: { products: Product[] }) {
   const t = useTranslations('Products');
   return (
     <>
@@ -41,7 +44,7 @@ function ProductsPageContent() {
         </div>
       </Section>
       <Section>
-        <ProductsCatalog />
+        <ProductsCatalog products={products} />
       </Section>
     </>
   );
