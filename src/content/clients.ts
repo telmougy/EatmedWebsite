@@ -1,6 +1,10 @@
 import type { Client } from './types';
+import { sanityFetch } from '@/sanity/fetch';
+import { TAGS } from '@/sanity/tags';
+import { clientsQuery } from '@/sanity/queries';
 
-export const clients: Client[] = [
+// Bundled fallback / seed source for scripts/sanity-import.ts. Remove at cutover.
+export const fallbackClients: Client[] = [
   {
     id: 'mod',
     name: { ar: 'وزارة الدفاع', en: 'Ministry of Defense' },
@@ -70,3 +74,12 @@ export const clients: Client[] = [
     name: { ar: 'الماجد للإعمار', en: 'El Majd Construction' },
   },
 ];
+
+/** All clients, Sanity-first with static fallback. */
+export async function getClients(): Promise<Client[]> {
+  const data = await sanityFetch<Client[]>({
+    query: clientsQuery,
+    tags: [TAGS.client],
+  });
+  return data && data.length > 0 ? data : fallbackClients;
+}

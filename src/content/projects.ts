@@ -1,6 +1,10 @@
 import type { Project } from './types';
+import { sanityFetch } from '@/sanity/fetch';
+import { TAGS } from '@/sanity/tags';
+import { projectsQuery } from '@/sanity/queries';
 
-export const projects: Project[] = [
+// Bundled fallback / seed source for scripts/sanity-import.ts. Remove at cutover.
+export const fallbackProjects: Project[] = [
   {
     id: 'ousos-villas',
     name: { ar: 'فلل أسس P122', en: 'OSUS Villas P122' },
@@ -387,8 +391,27 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectStats = {
-  total: projects.length,
-  sectors: new Set(projects.map((p) => p.sector)).size,
-  yearsActive: new Date().getFullYear() - 2022,
+/** All reference projects, Sanity-first with static fallback. */
+export async function getProjects(): Promise<Project[]> {
+  const data = await sanityFetch<Project[]>({
+    query: projectsQuery,
+    tags: [TAGS.project],
+  });
+  return data && data.length > 0 ? data : fallbackProjects;
+}
+
+export type ProjectStats = {
+  total: number;
+  sectors: number;
+  yearsActive: number;
 };
+
+/** Aggregate stats derived from the live project list. */
+export async function getProjectStats(): Promise<ProjectStats> {
+  const list = await getProjects();
+  return {
+    total: list.length,
+    sectors: new Set(list.map((p) => p.sector)).size,
+    yearsActive: new Date().getFullYear() - 2022,
+  };
+}

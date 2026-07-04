@@ -1,6 +1,16 @@
+import { cache } from 'react';
 import type { Product } from './types';
+import { sanityFetch } from '@/sanity/fetch';
+import { TAGS } from '@/sanity/tags';
+import {
+  productsQuery,
+  productSlugsQuery,
+  featuredProductsQuery,
+} from '@/sanity/queries';
 
-export const products: Product[] = [
+// Bundled fallback used when Sanity isn't configured (or a query returns empty).
+// Also the seed source for scripts/sanity-import.ts. Remove at cutover.
+export const fallbackProducts: Product[] = [
   {
     slug: 'garage-rolling-doors',
     name: { ar: 'أبواب الرول السحابة (الجراج)', en: 'Garage Rolling Doors' },
@@ -519,7 +529,42 @@ export const products: Product[] = [
   },
 ];
 
-export const getProductBySlug = (slug: string) =>
-  products.find((p) => p.slug === slug);
+/**
+ * All products, Sanity-first with static fallback.
+ * `cache()` dedupes the fetch within a request, so the product-detail page's
+ * metadata + body + related-products all share a single round-trip.
+ */
+export const getProducts = cache(async (): Promise<Product[]> => {
+  const data = await sanityFetch<Product[]>({
+    query: productsQuery,
+    tags: [TAGS.product],
+  });
+  return data && data.length > 0 ? data : fallbackProducts;
+});
 
-export const featuredProducts = products.filter((p) => p.featured);
+/** Single product by slug, resolved from the (cached) product list. */
+export async function getProductBySlug(
+  slug: string,
+): Promise<Product | undefined> {
+  const products = await getProducts();
+  return products.find((p) => p.slug === slug);
+}
+
+/** Slugs for generateStaticParams / sitemap. */
+export async function getProductSlugs(): Promise<string[]> {
+  const data = await sanityFetch<string[]>({
+    query: productSlugsQuery,
+    tags: [TAGS.product],
+  });
+  return data && data.length > 0 ? data : fallbackProducts.map((p) => p.slug);
+}
+
+/** Products flagged for the home page. */
+export async function getFeaturedProducts(): Promise<Product[]> {
+  const data = await sanityFetch<Product[]>({
+    query: featuredProductsQuery,
+    tags: [TAGS.product],
+  });
+  if (data && data.length > 0) return data;
+  return fallbackProducts.filter((p) => p.featured);
+}
