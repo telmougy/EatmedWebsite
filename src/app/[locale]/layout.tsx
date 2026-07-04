@@ -12,6 +12,7 @@ import { BackgroundShader } from '@/components/ui/background-shader';
 import { OrganizationJsonLd } from '@/components/seo/json-ld';
 import { routing } from '@/i18n/routing';
 import { site } from '@/lib/site';
+import { getSiteSettings } from '@/content/site-settings';
 import '../globals.css';
 
 const inter = Inter({
@@ -91,6 +92,7 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
+  const siteSettings = await getSiteSettings();
 
   return (
     <html
@@ -112,7 +114,7 @@ export default async function LocaleLayout({
           <NextIntlClientProvider>
             <Header />
             <main id="main-content" className="flex-1">{children}</main>
-            <Footer />
+            <Footer settings={siteSettings} />
             <WhatsAppFab />
           </NextIntlClientProvider>
         </ThemeProvider>

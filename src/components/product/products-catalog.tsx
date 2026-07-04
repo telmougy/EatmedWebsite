@@ -3,13 +3,12 @@
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/cn';
-import { products } from '@/content/products';
-import type { ProductUseCase } from '@/content/types';
+import type { Product, ProductUseCase } from '@/content/types';
 import { ProductCard } from './product-card';
 
 type Filter = 'all' | ProductUseCase;
 
-export function ProductsCatalog() {
+export function ProductsCatalog({ products }: { products: Product[] }) {
   const t = useTranslations('Products');
   const [filter, setFilter] = useState<Filter>('all');
 
@@ -24,7 +23,7 @@ export function ProductsCatalog() {
   const filtered = useMemo(() => {
     if (filter === 'all') return products;
     return products.filter((p) => p.useCases.includes(filter));
-  }, [filter]);
+  }, [filter, products]);
 
   return (
     <div>

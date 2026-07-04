@@ -20,16 +20,18 @@ import { Badge } from '@/components/ui/badge';
 import { Link } from '@/i18n/navigation';
 import { ProductCard } from '@/components/product/product-card';
 import { QuoteButton } from '@/components/ui/quote-button';
-import { products, getProductBySlug } from '@/content/products';
-import { getBrand } from '@/content/brands';
+import { getProductBySlug, getProducts, getProductSlugs } from '@/content/products';
+import { getBrands, resolveBrands } from '@/content/brands';
+import type { Brand, Product } from '@/content/types';
 import { whatsappLink, site } from '@/lib/site';
 import { ProductJsonLd, BreadcrumbJsonLd } from '@/components/seo/json-ld';
 
 type RouteParams = { locale: string; slug: string };
 
 export async function generateStaticParams() {
-  return products.flatMap((p) =>
-    (['ar', 'en'] as const).map((locale) => ({ locale, slug: p.slug })),
+  const slugs = await getProductSlugs();
+  return slugs.flatMap((slug) =>
+    (['ar', 'en'] as const).map((locale) => ({ locale, slug })),
   );
 }
 
@@ -39,7 +41,7 @@ export async function generateMetadata({
   params: Promise<RouteParams>;
 }) {
   const { locale, slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) return {};
   const t = await getTranslations({ locale, namespace: 'Meta' });
   const name = product.name[locale as 'ar' | 'en'];
@@ -60,22 +62,33 @@ export default async function ProductDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
-  return <ProductDetail slug={slug} />;
+
+  const [allProducts, allBrands] = await Promise.all([
+    getProducts(),
+    getBrands(),
+  ]);
+  const related = allProducts
+    .filter((p) => p.slug !== product.slug && p.category === product.category)
+    .slice(0, 3);
+  const motors = resolveBrands(product.motors, allBrands);
+
+  return <ProductDetail product={product} related={related} motors={motors} />;
 }
 
-function ProductDetail({ slug }: { slug: string }) {
-  const product = getProductBySlug(slug)!;
+function ProductDetail({
+  product,
+  related,
+  motors,
+}: {
+  product: Product;
+  related: Product[];
+  motors: Brand[];
+}) {
   const locale = useLocale() as 'ar' | 'en';
   const t = useTranslations('Products');
   const tDs = useTranslations('Products.decision');
-
-  const related = products
-    .filter((p) => p.slug !== product.slug && p.category === product.category)
-    .slice(0, 3);
-
-  const motors = product.motors?.map(getBrand).filter(Boolean) ?? [];
 
   const decisionRows: { icon: typeof Layers; label: string; value: string }[] = [];
   if (product.material)
@@ -327,13 +340,13 @@ function ProductDetail({ slug }: { slug: string }) {
                 <ul className="flex flex-wrap gap-2">
                   {motors.map((b) => (
                     <li
-                      key={b!.id}
+                      key={b.id}
                       className="bg-background border-border rounded-md border px-3 py-1.5 text-sm font-medium"
                     >
-                      {b!.name}
-                      {b!.country && (
+                      {b.name}
+                      {b.country && (
                         <span className="text-muted-foreground ms-2 text-xs">
-                          {b!.country}
+                          {b.country}
                         </span>
                       )}
                     </li>

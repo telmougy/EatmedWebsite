@@ -1,16 +1,21 @@
 import { useTranslations } from 'next-intl';
 import { Section } from '@/components/ui/section';
-import { projectStats } from '@/content/projects';
-import { brands } from '@/content/brands';
+import type { ProjectStats } from '@/content/projects';
 
-export function Stats() {
+export function Stats({
+  projectStats,
+  brandCount,
+}: {
+  projectStats: ProjectStats;
+  brandCount: number;
+}) {
   const t = useTranslations('Home');
 
   const items = [
     { value: `${projectStats.total}+`, label: t('statsProjects') },
     { value: `${projectStats.sectors}`, label: t('statsSectors') },
     { value: `${projectStats.yearsActive}+`, label: t('statsYears') },
-    { value: `${brands.length}`, label: t('statsBrands') },
+    { value: `${brandCount}`, label: t('statsBrands') },
   ];
 
   return (

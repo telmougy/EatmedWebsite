@@ -5,6 +5,8 @@ import { Section } from '@/components/ui/section';
 import { Container } from '@/components/ui/container';
 import { ProjectsTable } from '@/components/sections/projects-table';
 import { FeaturedReferences } from '@/components/sections/featured-references';
+import { getProjects } from '@/content/projects';
+import type { Project } from '@/content/types';
 
 export async function generateMetadata({
   params,
@@ -26,10 +28,11 @@ export default async function ProjectsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <ProjectsContent />;
+  const projects = await getProjects();
+  return <ProjectsContent projects={projects} />;
 }
 
-function ProjectsContent() {
+function ProjectsContent({ projects }: { projects: Project[] }) {
   const t = useTranslations('Projects');
   return (
     <>
@@ -55,7 +58,7 @@ function ProjectsContent() {
       <Section>
         <Container>
           <Suspense fallback={null}>
-            <ProjectsTable />
+            <ProjectsTable projects={projects} />
           </Suspense>
         </Container>
       </Section>

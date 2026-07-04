@@ -17,9 +17,9 @@ import { Container } from '@/components/ui/container';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { DownloadCTA } from '@/components/ui/download-cta';
-import { approvals } from '@/content/approvals';
-import { projects } from '@/content/projects';
-import type { ApprovalCategory } from '@/content/types';
+import { getApprovals } from '@/content/approvals';
+import { getProjects } from '@/content/projects';
+import type { Approval, ApprovalCategory } from '@/content/types';
 
 export async function generateMetadata({
   params,
@@ -41,7 +41,20 @@ export default async function ApprovalsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <ApprovalsContent />;
+  const [approvals, projects] = await Promise.all([
+    getApprovals(),
+    getProjects(),
+  ]);
+  const governmentDefenseRefs = projects.filter(
+    (p) =>
+      p.sector === 'defense' || p.sector === 'guard' || p.sector === 'government',
+  ).length;
+  return (
+    <ApprovalsContent
+      approvals={approvals}
+      governmentDefenseRefs={governmentDefenseRefs}
+    />
+  );
 }
 
 // Display order — most credibility-loaded categories first
@@ -65,22 +78,24 @@ const CATEGORY_ICON: Record<ApprovalCategory, typeof Award> = {
   government: Landmark,
 };
 
-function ApprovalsContent() {
+function ApprovalsContent({
+  approvals,
+  governmentDefenseRefs,
+}: {
+  approvals: Approval[];
+  governmentDefenseRefs: number;
+}) {
   const t = useTranslations('Approvals');
   const tDl = useTranslations('Downloads');
   const locale = useLocale() as 'ar' | 'en';
 
-  const byCategory = approvals.reduce<
-    Partial<Record<ApprovalCategory, typeof approvals>>
-  >((acc, a) => {
-    (acc[a.category] ??= []).push(a);
-    return acc;
-  }, {});
-
-  const governmentDefenseRefs = projects.filter(
-    (p) =>
-      p.sector === 'defense' || p.sector === 'guard' || p.sector === 'government',
-  ).length;
+  const byCategory = approvals.reduce<Partial<Record<ApprovalCategory, Approval[]>>>(
+    (acc, a) => {
+      (acc[a.category] ??= []).push(a);
+      return acc;
+    },
+    {},
+  );
 
   const yearsActive = new Date().getFullYear() - 2022;
 

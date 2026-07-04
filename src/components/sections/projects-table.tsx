@@ -5,8 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/cn';
-import { projects } from '@/content/projects';
-import type { ProjectSector } from '@/content/types';
+import type { Project, ProjectSector } from '@/content/types';
 
 type Filter = 'all' | ProjectSector;
 
@@ -18,7 +17,7 @@ const SECTORS: ProjectSector[] = [
   'utility',
 ];
 
-export function ProjectsTable() {
+export function ProjectsTable({ projects }: { projects: Project[] }) {
   const t = useTranslations('Projects');
   const locale = useLocale() as 'ar' | 'en';
   const searchParams = useSearchParams();
@@ -41,7 +40,7 @@ export function ProjectsTable() {
     };
     for (const p of projects) counts[p.sector]++;
     return counts;
-  }, []);
+  }, [projects]);
 
   const filters: { key: Filter; label: string; count: number }[] = [
     { key: 'all', label: t('filterAll'), count: projects.length },
@@ -63,7 +62,7 @@ export function ProjectsTable() {
   const filtered = useMemo(() => {
     if (filter === 'all') return projects;
     return projects.filter((p) => p.sector === filter);
-  }, [filter]);
+  }, [filter, projects]);
 
   return (
     <div>
