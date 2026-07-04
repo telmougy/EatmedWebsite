@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Product/cert images served from Sanity's CDN once content is managed in Sanity.
+    remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }],
   },
 };
 
