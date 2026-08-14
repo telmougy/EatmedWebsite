@@ -15,6 +15,12 @@ export const site = {
   city: 'Riyadh',
   country: 'SA',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://eatmed.sa',
+  app: {
+    name: 'Eatmed - اعتمد',
+    appStore: 'https://apps.apple.com/sa/app/id6769091090',
+    googlePlay:
+      'https://play.google.com/store/apps/details?id=com.tawfik.eatemedco',
+  },
 } as const;
 
 export const whatsappLink = (text?: string) => {

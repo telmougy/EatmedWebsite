@@ -32,7 +32,15 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             </h3>
             <ul className="space-y-2 text-sm">
               {(
-                ['home', 'about', 'products', 'projects', 'approvals', 'contact'] as const
+                [
+                  'home',
+                  'about',
+                  'products',
+                  'projects',
+                  'approvals',
+                  'app',
+                  'contact',
+                ] as const
               ).map((key) => (
                 <li key={key}>
                   <Link

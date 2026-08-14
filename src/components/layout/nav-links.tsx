@@ -3,18 +3,20 @@
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
+import type { NavLink } from './nav-link';
 
-type Link = { href: string; key: 'home' | 'about' | 'products' | 'projects' | 'approvals' | 'contact' };
-
-export function NavLinks({ links }: { links: Link[] }) {
+export function NavLinks({ links }: { links: NavLink[] }) {
   const t = useTranslations('Nav');
   const pathname = usePathname();
 
   return (
-    <nav className="hidden items-center gap-1 md:flex">
+    <nav className="hidden items-center gap-1 lg:flex">
       {links.map((link) => {
+        // Boundary-aware: a plain startsWith would light up /app on /approvals.
         const active =
-          link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+          link.href === '/'
+            ? pathname === '/'
+            : pathname === link.href || pathname.startsWith(`${link.href}/`);
         return (
           <Link
             key={link.href}

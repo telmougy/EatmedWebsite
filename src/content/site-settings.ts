@@ -20,6 +20,8 @@ export type SiteSettings = {
   postalCode: string;
   cr: string;
   vat: string;
+  appStoreUrl: string;
+  googlePlayUrl: string;
 };
 
 type SanitySiteSettings = Partial<SiteSettings>;
@@ -40,5 +42,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     postalCode: data?.postalCode || site.postalCode,
     cr: data?.cr || site.cr,
     vat: data?.vat || site.vat,
+    appStoreUrl: data?.appStoreUrl || site.app.appStore,
+    googlePlayUrl: data?.googlePlayUrl || site.app.googlePlay,
   };
 }

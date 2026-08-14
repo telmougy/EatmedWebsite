@@ -72,6 +72,40 @@ export function OrganizationJsonLd({ locale }: { locale: string }) {
   return jsonLdScript(data);
 }
 
+export function MobileApplicationJsonLd({
+  locale,
+  appStoreUrl,
+  googlePlayUrl,
+}: {
+  locale: string;
+  appStoreUrl: string;
+  googlePlayUrl: string;
+}) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: site.app.name,
+    url: `${site.url}/${locale}/app`,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'iOS 16.2+, Android',
+    installUrl: [appStoreUrl, googlePlayUrl],
+    sameAs: [appStoreUrl, googlePlayUrl],
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'SAR',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: site.legalName,
+      url: site.url,
+    },
+    inLanguage: locale,
+  };
+
+  return jsonLdScript(data);
+}
+
 export function ProductJsonLd({
   product,
   locale,
