@@ -45,5 +45,6 @@ export const brandsQuery = /* groq */ `*[_type == "brand"] | order(order asc) {
 export const uiStringsQuery = /* groq */ `*[_type == "uiStrings"][0].entries[]{ path, ar, en }`;
 
 export const siteSettingsQuery = /* groq */ `*[_type == "siteSettings"][0]{
-  email, emailInfo, phones, whatsapp, address, city, postalCode, cr, vat
+  email, emailInfo, phones, whatsapp, address, city, postalCode, cr, vat,
+  appStoreUrl, googlePlayUrl
 }`;

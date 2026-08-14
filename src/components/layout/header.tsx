@@ -13,6 +13,7 @@ const links = [
   { href: '/products', key: 'products' as const },
   { href: '/projects', key: 'projects' as const },
   { href: '/approvals', key: 'approvals' as const },
+  { href: '/app', key: 'app' as const },
   { href: '/contact', key: 'contact' as const },
 ];
 
@@ -30,7 +31,7 @@ export function Header() {
             <ThemeToggle />
             <Link
               href="/contact"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 hidden h-10 items-center rounded-md px-4 text-sm font-medium transition-colors md:inline-flex"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 hidden h-10 items-center rounded-md px-4 text-sm font-medium transition-colors lg:inline-flex"
             >
               {t('getQuote')}
             </Link>

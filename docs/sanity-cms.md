@@ -13,7 +13,7 @@ Until a Sanity project is wired up, the site falls back to the bundled content i
 | --- | --- |
 | Products, Projects, Approvals, Clients, Brands | `src/content/*.ts` |
 | UI text (headings, labels, buttons) | `src/i18n/messages/{ar,en}.json` |
-| Company info (phones, email, address, CR, VAT) | `src/lib/site.ts` |
+| Company info (phones, email, address, CR, VAT, app store links) | `src/lib/site.ts` |
 
 UI text and company info are merged **over** the bundled defaults — a blank entry
 keeps the built-in text, so an editor can't blank out the layout.

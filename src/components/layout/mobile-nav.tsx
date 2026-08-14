@@ -7,8 +7,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Link, usePathname } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
-
-type NavLink = { href: string; key: 'home' | 'about' | 'products' | 'projects' | 'approvals' | 'contact' };
+import type { NavLink } from './nav-link';
 
 export function MobileNav({ links }: { links: NavLink[] }) {
   const t = useTranslations('Nav');
@@ -21,7 +20,7 @@ export function MobileNav({ links }: { links: NavLink[] }) {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="lg:hidden"
           aria-label={t('openMenu')}
         >
           <Menu className="size-5" />

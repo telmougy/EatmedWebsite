@@ -27,6 +27,20 @@ export const siteSettings = defineType({
     defineField({ name: 'postalCode', title: 'Postal code', type: 'string' }),
     defineField({ name: 'cr', title: 'Commercial Registration (CR)', type: 'string' }),
     defineField({ name: 'vat', title: 'VAT number', type: 'string' }),
+    defineField({
+      name: 'appStoreUrl',
+      title: 'App Store link',
+      type: 'url',
+      description:
+        'Apple App Store listing for the Eatmed mobile app. Leave empty to use the built-in link.',
+    }),
+    defineField({
+      name: 'googlePlayUrl',
+      title: 'Google Play link',
+      type: 'url',
+      description:
+        'Google Play listing for the Eatmed mobile app. Leave empty to use the built-in link.',
+    }),
   ],
   preview: { prepare: () => ({ title: 'Company info' }) },
 });
