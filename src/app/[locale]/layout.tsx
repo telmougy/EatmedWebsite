@@ -10,6 +10,7 @@ import { Footer } from '@/components/layout/footer';
 import { WhatsAppFab } from '@/components/layout/whatsapp-fab';
 import { BackgroundShader } from '@/components/ui/background-shader';
 import { OrganizationJsonLd } from '@/components/seo/json-ld';
+import { GoogleTag } from '@/components/seo/google-tag';
 import { routing } from '@/i18n/routing';
 import { site } from '@/lib/site';
 import { getSiteSettings } from '@/content/site-settings';
@@ -108,6 +109,7 @@ export default async function LocaleLayout({
         >
           {locale === 'ar' ? 'تخطي إلى المحتوى' : 'Skip to main content'}
         </a>
+        <GoogleTag />
         <OrganizationJsonLd locale={locale} />
         <BackgroundShader />
         <ThemeProvider>
