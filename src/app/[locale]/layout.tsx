@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { WhatsAppFab } from '@/components/layout/whatsapp-fab';
+import { HideOnRoutes } from '@/components/layout/hide-on-routes';
 import { BackgroundShader } from '@/components/ui/background-shader';
 import { OrganizationJsonLd } from '@/components/seo/json-ld';
 import { GoogleTag } from '@/components/seo/google-tag';
@@ -28,6 +29,9 @@ const plexArabic = IBM_Plex_Sans_Arabic({
   variable: '--font-sans-ar',
   display: 'swap',
 });
+
+/** Routes that render without the footer and the floating WhatsApp button. */
+const CHROMELESS_ROUTES = ['/app'];
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -116,8 +120,10 @@ export default async function LocaleLayout({
           <NextIntlClientProvider>
             <Header />
             <main id="main-content" className="flex-1">{children}</main>
-            <Footer settings={siteSettings} />
-            <WhatsAppFab />
+            <HideOnRoutes paths={CHROMELESS_ROUTES}>
+              <Footer settings={siteSettings} />
+              <WhatsAppFab />
+            </HideOnRoutes>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
