@@ -2,19 +2,10 @@
 
 import { MessageCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { usePathname } from '@/i18n/navigation';
 import { whatsappLink } from '@/lib/site';
-
-/** Routes that opt out of the floating WhatsApp button (locale prefix excluded). */
-const HIDDEN_PATHS = ['/app'];
 
 export function WhatsAppFab() {
   const t = useTranslations('Contact');
-  const pathname = usePathname();
-
-  if (HIDDEN_PATHS.includes(pathname)) {
-    return null;
-  }
 
   return (
     <a
